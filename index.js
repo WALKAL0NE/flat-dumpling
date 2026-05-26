@@ -36,6 +36,13 @@ export default function flatDumpling(options = {}) {
     locales = ['ja'],
   } = options;
 
+  // [3] locales に defaultLang が含まれているか検証
+  if (!Array.isArray(locales) || !locales.includes(defaultLang)) {
+    throw new Error(
+      `[@walkal0ne/flat-dumpling] "locales" must include "defaultLang" ("${defaultLang}"). Got: ${JSON.stringify(locales)}`
+    );
+  }
+
   const nonDefaultLocales = locales.filter((l) => l !== defaultLang);
   const config = { defaultLang, locales };
 
@@ -109,8 +116,9 @@ export function getStaticPaths() {
  */
 export function withLangPaths(paths) {
   const langs = ${JSON.stringify(nonDefaultLocales)};
+  // [2] lang は後から上書きされないよう末尾に置く
   return langs.flatMap((lang) =>
-    paths.map((p) => ({ ...p, params: { lang, ...p.params } }))
+    paths.map((p) => ({ ...p, params: { ...p.params, lang } }))
   );
 }
 `;
@@ -127,9 +135,11 @@ const defaultLang = ${JSON.stringify(defaultLang)};
  * @returns {string}
  */
 export function locatePath(pathname, astro) {
+  // [4] スラッシュ始まりを強制
+  const normalizedPath = pathname.startsWith('/') ? pathname : '/' + pathname;
   const lang = astro?.currentLocale ?? defaultLang;
-  if (lang === defaultLang) return pathname;
-  return '/' + lang + pathname;
+  if (lang === defaultLang) return normalizedPath;
+  return '/' + lang + normalizedPath;
 }
 `;
                   }
@@ -147,16 +157,19 @@ export default class Dumpling {
   get locales() { return locales; }
   get defaultLang() { return defaultLang; }
 
+  // [5] スラッシュ始まりを強制
   locatePath(pathname) {
-    if (this._lang === defaultLang) return pathname;
-    return '/' + this._lang + pathname;
+    const normalizedPath = pathname.startsWith('/') ? pathname : '/' + pathname;
+    if (this._lang === defaultLang) return normalizedPath;
+    return '/' + this._lang + normalizedPath;
   }
 }
 `;
                   }
 
                   if (defaultPageMap.has(id)) {
-                    return `export { default } from '${defaultPageMap.get(id)}';`;
+                    // [1] パスをJSON.stringifyでエスケープしてシングルクォートの問題を回避
+                    return `export { default } from ${JSON.stringify(defaultPageMap.get(id))};`;
                   }
                 },
               },

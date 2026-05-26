@@ -1,6 +1,6 @@
 {
   "name": "@walkal0ne/flat-dumpling",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Astro integration for explicit file-based i18n routing via pages/[lang]/*.astro",
   "type": "module",
   "main": "index.js",
