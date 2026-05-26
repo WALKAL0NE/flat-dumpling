@@ -1,0 +1,29 @@
+{
+  "name": "@walkal0ne/flat-dumpling",
+  "version": "0.2.1",
+  "description": "Astro integration for explicit file-based i18n routing via pages/[lang]/*.astro",
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    }
+  },
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
+  "keywords": [
+    "astro",
+    "astro-integration",
+    "astro-component",
+    "i18n",
+    "routing"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "astro": ">=4.0.0"
+  }
+}
