@@ -1,4 +1,14 @@
-# @walkal0ne/flat-dumpling
+---
+name: flat-dumpling
+description: >
+  Reference for @walkal0ne/flat-dumpling — an Astro integration for explicit
+  file-based i18n routing via pages/[lang]/*.astro. Use this skill whenever
+  working on a project that has flat-dumpling installed, especially when
+  creating or editing [lang] pages, using virtual:flat-dumpling/* modules,
+  generating static paths for localized routes, or building locale-aware links.
+  Also use when the user asks how to add a new language page, set up i18n
+  routing, or use Dumpling / locatePath / withLangPaths.
+---
 
 このプロジェクトは `@walkal0ne/flat-dumpling` を使った多言語ルーティングを採用しています。
 `[lang]` ページを作成・編集する際は必ずこのファイルを参照してください。
